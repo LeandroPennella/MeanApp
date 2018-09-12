@@ -6,9 +6,10 @@ import { Component } from '@angular/core';
 
 })
 export class PostCreateComponent {
+  valorIngresado = '';
   newPost = 'nada';
   onAddPost(postInput: HTMLTextAreaElement) {
-    console.dir(postInput);
-    this.newPost = postInput.value;
+    //console.dir(postInput);
+    this.newPost = this.valorIngresado;
   }
 }

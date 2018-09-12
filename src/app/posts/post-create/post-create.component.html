@@ -1,4 +1,6 @@
-<textarea rows="6" [value]="newPost" #postInput></textarea>
+<!--<textarea rows="6" [value]="newPost" #postInput></textarea>-->
+<textarea rows="6" [(ngModel)]="valorIngresado"></textarea>
 <hr>
-<button (click)="onAddPost(postInput)">Guardar</button>
+<!--<button (click)="onAddPost(postInput)">Guardar</button>-->
+<button (click)="onAddPost()">Guardar</button>
 <p>{{ newPost }}</p>
