@@ -10,7 +10,7 @@ export class PostCreateComponent {
   valorIngresado = '';
   newPost = 'nada';
   onAddPost(postInput: HTMLTextAreaElement) {
-    //console.dir(postInput);
+    // console.dir(postInput);
     this.newPost = this.valorIngresado;
   }
 }
