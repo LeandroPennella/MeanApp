@@ -2,17 +2,35 @@
 <!--<button (click)="onAddPost(postInput)">Guardar</button>-->
 
 <mat-card>
+  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
     <mat-form-field>
-      <input matInput  type="text" [(ngModel)]="tituloIngresado" />
+      <input
+        matInput
+        type="text"
+        name="tituloIngresado"
+        #tituloIngresado="ngModel"
+        ngModel
+        required
+        minlength="3" />
+        <mat-error *ngIf="tituloIngresado.invalid">Ingrese un titulo</mat-error>
     </mat-form-field>
 
   <mat-form-field>
-    <textarea matInput rows="6" [(ngModel)]="textoIngresado"></textarea>
+    <textarea
+      matInput
+      rows="6"
+      name="textoIngresado"
+      #textoIngresado="ngModel"
+      required
+      ngModel></textarea>
+      <mat-error *ngIf="textoIngresado.invalid">Ingrese un contenido</mat-error>
   </mat-form-field>
   <button
     mat-raised-button
     color="accent"
-    (click)="onAddPost()">Guardar</button>
+    type="submit"
+    >Guardar</button>
+  </form>
 </mat-card>
 
 
