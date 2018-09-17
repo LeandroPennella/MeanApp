@@ -2,8 +2,12 @@
 <!--<button (click)="onAddPost(postInput)">Guardar</button>-->
 
 <mat-card>
+    <mat-form-field>
+      <input matInput  type="text" [(ngModel)]="tituloIngresado" />
+    </mat-form-field>
+
   <mat-form-field>
-    <textarea matInput rows="6" [(ngModel)]="valorIngresado"></textarea>
+    <textarea matInput rows="6" [(ngModel)]="textoIngresado"></textarea>
   </mat-form-field>
   <button
     mat-raised-button
