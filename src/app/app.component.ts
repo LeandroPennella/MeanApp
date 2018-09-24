@@ -7,12 +7,12 @@ import { Post } from './posts/post.model';
 })
 export class AppComponent {
   // title = 'app';
-
+/*
   storedPosts: Post[] = [];
 
   onPostAdded(post) {
     this.storedPosts.push(post);
     // console.dir(this.storedPosts);
   }
-
+*/
 }
