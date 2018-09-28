@@ -30,6 +30,7 @@ export class PostCreateComponent {
 
     // this.postCreated.emit(post);
     this.postsService.addPost(post);
+    form.resetForm();
 
   }
 }

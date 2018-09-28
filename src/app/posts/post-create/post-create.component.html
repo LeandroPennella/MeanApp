@@ -11,6 +11,7 @@
         #tituloIngresado="ngModel"
         ngModel
         required
+        placeholder="Titulo"
         minlength="3" />
         <mat-error *ngIf="tituloIngresado.invalid">Ingrese un titulo</mat-error>
     </mat-form-field>
@@ -22,6 +23,7 @@
       name="textoIngresado"
       #textoIngresado="ngModel"
       required
+      placeholder="Contenido"
       ngModel></textarea>
       <mat-error *ngIf="textoIngresado.invalid">Ingrese un contenido</mat-error>
   </mat-form-field>
