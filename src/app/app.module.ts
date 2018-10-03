@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 import {
   MatInputModule,
   MatCardModule,
@@ -35,8 +37,9 @@ import { PostListComponent } from './posts/post-list/post-list.component';
     MatCardModule,
     MatButtonModule,
     MatToolbarModule,
-    MatExpansionModule
+    MatExpansionModule,
 
+    HttpClientModule
   ],
   providers: [], // PostsService > reemplazado por @injectable en service
   bootstrap: [AppComponent]
