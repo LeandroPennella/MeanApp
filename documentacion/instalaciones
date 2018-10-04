@@ -1,10 +1,24 @@
 
 ##node, npm, ng, cli
 
+#node
+
+#npm
+
+#ng
+
+#cli
+npm install -g @angular/cli
+
 
 ##Material
+npm install --save @angular/Material
+ng add @angular/material
+
 
 ##express
 npm install --save express
 
+
+##nodemon
 npm install --save-dev nodemon
