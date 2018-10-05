@@ -10,18 +10,16 @@ app.use((request,response, next) =>  {
 });
 
 app.use('/api/posts', (request,response, next) =>   {
-
-
   const posts = [
     {
       id:'asd09a8',
-      title:'titulo 1 ',
-      content:'contenido 1'
+      titulo:'titulo 1 ',
+      contenido:'contenido 1'
     },
     {
       id:'rty09rty',
-      title:'titulo 2',
-      content:'contenido 2'
+      titulo:'titulo 2',
+      contenido:'contenido 2'
     }
   ];
   return response.status(200).json({
