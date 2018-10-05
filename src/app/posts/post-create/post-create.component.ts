@@ -26,7 +26,7 @@ export class PostCreateComponent {
     const post: Post = {
       id: null,
       titulo: form.value.tituloIngresado,
-      texto: form.value.textoIngresado
+      contenido: form.value.textoIngresado
     };
 
     // this.postCreated.emit(post);
