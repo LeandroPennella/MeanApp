@@ -1,6 +1,12 @@
 const express = require ('express');
-
+const bodyParser = require('body-parser');
 const app = express();
+
+// middlewares
+
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({extended: false }));
 
 app.use((request,response, next) =>  {
   response.setHeader("Access-Control-Allow-Origin", "*");
@@ -9,7 +15,14 @@ app.use((request,response, next) =>  {
   next();
 });
 
-app.use('/api/posts', (request,response, next) =>   {
+app.post('/api/posts', (request,response, next) =>   {
+  const httpPost=request.body;
+  console.log(httpPost);
+  response.status(201).json({
+     message: 'Posteo agregado'
+  }); //para seguir
+});
+app.get('/api/posts', (request,response, next) =>   {
   const posts = [
     {
       id:'asd09a8',
