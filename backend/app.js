@@ -2,6 +2,10 @@ const express = require ('express');
 const bodyParser = require('body-parser');
 const app = express();
 
+//mongodb atlas
+https://cloud.mongodb.com/v2/5b53808496e821402dade07e#clusters
+meanapp:CfU5gAhfFMmpI9kW
+
 // middlewares
 
 app.use(bodyParser.json());
