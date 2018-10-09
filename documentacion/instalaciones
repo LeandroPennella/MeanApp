@@ -12,7 +12,7 @@ npm install -g @angular/cli
 
 
 ##Material
-npm install --save @angular/Material
+//npm install --save @angular/Material
 ng add @angular/material
 
 

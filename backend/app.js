@@ -1,10 +1,11 @@
 const express = require ('express');
 const bodyParser = require('body-parser');
 const app = express();
+const Post = require('./model/post');
 
 //mongodb atlas
-https://cloud.mongodb.com/v2/5b53808496e821402dade07e#clusters
-meanapp:CfU5gAhfFMmpI9kW
+// https://cloud.mongodb.com/v2/5b53808496e821402dade07e#clusters
+// meanapp:CfU5gAhfFMmpI9kW
 
 // middlewares
 
@@ -20,7 +21,12 @@ app.use((request,response, next) =>  {
 });
 
 app.post('/api/posts', (request,response, next) =>   {
-  const httpPost=request.body;
+  const httpPost = new Post({
+//    id = null,
+    titulo: request.body.titulo,
+    contenido: request.body.contenido
+  });
+
   console.log(httpPost);
   response.status(201).json({
      message: 'Posteo agregado'
