@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-mongoose.connect("mongodb+srv://meanapp:CfU5gAhfFMmpI9kW@cluster0-xwx8a.mongodb.net/test?retryWrites=true")
+mongoose.connect("mongodb+srv://meanapp:CfU5gAhfFMmpI9kW@cluster0-xwx8a.mongodb.net/nodeangular?retryWrites=true")
   .then(() => {
     console.log('Conectado');
   })
@@ -33,14 +33,14 @@ app.use((request,response, next) =>  {
 });
 
 app.post('/api/posts', (request,response, next) =>   {
-  const httpPost = new Post({
+  const post = new Post({
 //    id = null,
     titulo: request.body.titulo,
     contenido: request.body.contenido
   });
 
-  console.log(httpPost);
-  // post.save();
+  console.log(post);
+  post.save();
   response.status(201).json({
      message: 'Posteo agregado'
   }); //para seguir

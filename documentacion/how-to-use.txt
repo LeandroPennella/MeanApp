@@ -10,3 +10,26 @@ Run "ng serve" to see the app in action (try "npm start" in case "ng serve" fail
 Feel free to compare it with your project code to spot any errors you might have.
 
 npm run start:server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.\mongo "mongodb+srv://cluster0-xwx8a.mongodb.net/test" --username meanapp
+CfU5gAhfFMmpI9kW
+
+use nodeangular
+
+show collections
+
+db.posts.find()
