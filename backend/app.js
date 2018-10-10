@@ -1,7 +1,19 @@
 const express = require ('express');
 const bodyParser = require('body-parser');
-const app = express();
+
 const Post = require('./model/post');
+const mongoose = require('mongoose');
+
+const app = express();
+
+mongoose.connect("mongodb+srv://meanapp:CfU5gAhfFMmpI9kW@cluster0-xwx8a.mongodb.net/test?retryWrites=true")
+  .then(() => {
+    console.log('Conectado');
+  })
+  .catch(err => { // mongoose connection error will be handled here
+    console.error('App starting error:', err.stack);
+    process.exit(1);
+  });
 
 //mongodb atlas
 // https://cloud.mongodb.com/v2/5b53808496e821402dade07e#clusters
@@ -28,6 +40,7 @@ app.post('/api/posts', (request,response, next) =>   {
   });
 
   console.log(httpPost);
+  // post.save();
   response.status(201).json({
      message: 'Posteo agregado'
   }); //para seguir
