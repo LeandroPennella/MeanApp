@@ -15,6 +15,7 @@ mongoose.connect("mongodb+srv://meanapp:CfU5gAhfFMmpI9kW@cluster0-xwx8a.mongodb.
     process.exit(1);
   });
 
+
 //mongodb atlas
 // https://cloud.mongodb.com/v2/5b53808496e821402dade07e#clusters
 // meanapp:CfU5gAhfFMmpI9kW
@@ -39,29 +40,23 @@ app.post('/api/posts', (request,response, next) =>   {
     contenido: request.body.contenido
   });
 
-  console.log(post);
+  // console.log(post);
   post.save();
   response.status(201).json({
      message: 'Posteo agregado'
   }); //para seguir
 });
 app.get('/api/posts', (request,response, next) =>   {
-  const posts = [
-    {
-      id:'asd09a8',
-      titulo:'titulo 1 ',
-      contenido:'contenido 1'
-    },
-    {
-      id:'rty09rty',
-      titulo:'titulo 2',
-      contenido:'contenido 2'
-    }
-  ];
-  return response.status(200).json({
+
+  Post.find().then((documents) => {
+    console.log(documents);
+  });
+/*
+  response.status(200).json({
     message: 'posteos pasados correctamente',
     posts: posts
   })
+  */
 });
 
 module.exports = app;

@@ -47,7 +47,30 @@ const onListening = () => {
 const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
+/*
+const tunnel = require('tunnel');
+const url = require('url')
+let urlParsed = url.parse('http://10.2.0.69:3128');
+var tunnelingAgent = tunnel.httpOverHttp({
+  proxy: {
+    host: urlParsed.hostname,
+    port: urlParsed.port  ,
+    proxyAuth: 'leandrop:visualestudio',
+  }
+});
+*/
+
+/*
+const  httpRequest = http.request({
+  host: 'example.com',
+  port: 443,
+  agent: tunnelingAgent
+});
+*/
+
+
 const server = http.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);
 server.listen(port);
+
