@@ -50,12 +50,13 @@ app.get('/api/posts', (request,response, next) =>   {
 
   Post.find().then((documents) => {
     console.log(documents);
+    response.status(200).json({
+      message: 'posteos pasados correctamente',
+      posts: documents
+    })
   });
 /*
-  response.status(200).json({
-    message: 'posteos pasados correctamente',
-    posts: posts
-  })
+
   */
 });
 
