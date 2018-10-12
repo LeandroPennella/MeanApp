@@ -15,21 +15,12 @@ npm run start:server
 
 
 
-
-
-
-
-
-
-
-
+.\mongo "mongodb+srv://cluster0-xwx8a.mongodb.net/test" --username meanapp
+CfU5gAhfFMmpI9kW
+use nodeangular
+show collections
+db.posts.find()
 
 
 .\mongo "mongodb+srv://cluster0-xwx8a.mongodb.net/test" --username meanapp
-CfU5gAhfFMmpI9kW
-
-use nodeangular
-
-show collections
-
 db.posts.find()
