@@ -10,7 +10,7 @@
 
     <mat-action-row>
       <button mat-button color="primary">EDITAR</button>
-      <button mat-button color="warn">BORRAR</button>
+      <button mat-button color="warn" (click)="onDelete(post.id)">BORRAR</button>
     </mat-action-row>
 
   </mat-expansion-panel>

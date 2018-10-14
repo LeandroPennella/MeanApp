@@ -7,8 +7,8 @@ const mongoose = require('mongoose');
 const app = express();
 
 mongoose.connect(
-  //"mongodb+srv://meanapp:CfU5gAhfFMmpI9kW@cluster0-xwx8a.mongodb.net/nodeangular?retryWrites=true"
-  "mongodb://localhost/nodeapdb"
+  "mongodb+srv://meanapp:CfU5gAhfFMmpI9kW@cluster0-xwx8a.mongodb.net/nodeangular?retryWrites=true"
+  // "mongodb://localhost/nodeapdb"
   )
   .then(() => {
     console.log('Conectado');
@@ -58,9 +58,12 @@ app.get('/api/posts', (request,response, next) =>   {
       posts: documents
     })
   });
-/*
 
-  */
+});
+
+app.delete('/api/posts/:id', (Request, response, next) => {
+  console.log(require.params.id);
+  response.status(200).json({ message: 'post eliminado'});
 });
 
 module.exports = app;
