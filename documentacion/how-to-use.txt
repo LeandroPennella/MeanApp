@@ -1,31 +1,45 @@
-How to use
-----------
-
-Run "npm install" inside this project folder to install all dependencies.
-
-Make sure you use the latest version of the CLI (upgrade guide below)
-
-Run "ng serve" to see the app in action (try "npm start" in case "ng serve" fails).
-
-Feel free to compare it with your project code to spot any errors you might have.
+### Node
 
 npm run start:server
+
+
+
+### Angular
+
+"ng serve" to see the app in action (try "npm start" in case "ng serve" fails).
+
+
+
+### MongoDB
+
+## LOCAL
+
+//Servidor
 
 C:
 cd "C:\Program Files\MongoDB\Server\4.0\bin\"
 .\mongod
+
+
+//GUI
 
 C:
 cd "C:\Users\fincu\AppData\Local\MongoDBCompass\"
 .\MongoDBCompass.exe
 
 
+//Shell
+
+.\mongo "mongodb://localhost/nodeapdb"
+db.posts.find()
+
+
+## Nube
+
+//Shell
+
 .\mongo "mongodb+srv://cluster0-xwx8a.mongodb.net/test" --username meanapp
 CfU5gAhfFMmpI9kW
 use nodeangular
 show collections
-db.posts.find()
-
-
-.\mongo "mongodb://localhost/nodeapdb"
 db.posts.find()
