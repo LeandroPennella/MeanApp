@@ -11,10 +11,15 @@ Feel free to compare it with your project code to spot any errors you might have
 
 npm run start:server
 
+C:
+cd "C:\Program Files\MongoDB\Server\4.0\bin\"
+.\mongod
 
 
+cd "C:\Users\fincu\AppData\Local\MongoDBCompass\"
+.\MongoDBCompass.exe
 
-
+P:
 .\mongo "mongodb+srv://cluster0-xwx8a.mongodb.net/test" --username meanapp
 CfU5gAhfFMmpI9kW
 use nodeangular
@@ -22,5 +27,5 @@ show collections
 db.posts.find()
 
 
-.\mongo "mongodb+srv://cluster0-xwx8a.mongodb.net/test" --username meanapp
+.\mongo "mongodb://localhost/nodeapdb"
 db.posts.find()
