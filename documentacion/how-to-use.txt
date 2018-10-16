@@ -15,11 +15,11 @@ C:
 cd "C:\Program Files\MongoDB\Server\4.0\bin\"
 .\mongod
 
-
+C:
 cd "C:\Users\fincu\AppData\Local\MongoDBCompass\"
 .\MongoDBCompass.exe
 
-P:
+
 .\mongo "mongodb+srv://cluster0-xwx8a.mongodb.net/test" --username meanapp
 CfU5gAhfFMmpI9kW
 use nodeangular

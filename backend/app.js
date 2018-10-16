@@ -61,9 +61,11 @@ app.get('/api/posts', (request,response, next) =>   {
 
 });
 
-app.delete('/api/posts/:id', (Request, response, next) => {
-  console.log(require.params.id);
-  response.status(200).json({ message: 'post eliminado'});
+app.delete('/api/posts/:id', (request, response, next) => {
+  Post.deleteOne({_id:request.params.id}).then( resultado => {
+    console.log(resultado);
+    response.status(200).json({ message: 'post eliminado'});
+  });
 });
 
 module.exports = app;
