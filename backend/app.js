@@ -44,10 +44,13 @@ app.post('/api/posts', (request,response, next) =>   {
   });
 
   // console.log(post);
-  post.save();
-  response.status(201).json({
-     message: 'Posteo agregado'
-  }); //para seguir
+  post.save().then(resultado => {
+    response.status(201).json({
+      message: 'Posteo agregado',
+      id: resultado._id
+   });
+  });
+//para seguir
 });
 app.get('/api/posts', (request,response, next) =>   {
 

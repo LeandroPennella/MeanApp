@@ -15,15 +15,17 @@ export class PostsService {
 
     this.httpClient
       .get<{message: string, posts: any}>('http://localhost:3000/api/posts')
-      .pipe(map((postData) => {
-        return postData.posts.map(post => {
-          return {
-            titulo: post.titulo,
-            contenido: post.contenido,
-            id: post._id
-          };
-        });
-      }))
+      .pipe(
+        map((postData) => {
+          return postData.posts.map(post => {
+            return {
+              titulo: post.titulo,
+              contenido: post.contenido,
+              id: post._id
+            };
+          });
+        }
+      ))
       .subscribe((parsedPosts) => {
         this.posts = parsedPosts;
         this.postsUpdated.next([...this.posts]);
@@ -39,6 +41,7 @@ export class PostsService {
     this.httpClient.post<{message: string}>('http://localhost:3000/api/posts', post)
       .subscribe((responseData) => {
         console.log(responseData.message);
+        post.id = responseData.id;
         this.posts.push (post);
         this.postsUpdated.next([...this.posts]);
       });
