@@ -38,7 +38,7 @@ export class PostsService {
   }
 
   addPost(post) {
-    this.httpClient.post<{message: string}>('http://localhost:3000/api/posts', post)
+    this.httpClient.post<{message: string, id: string}>('http://localhost:3000/api/posts', post)
       .subscribe((responseData) => {
         console.log(responseData.message);
         post.id = responseData.id;
@@ -50,7 +50,7 @@ export class PostsService {
   deletePost(id: string) {
     this.httpClient.delete('http://localhost:3000/api/posts/' + id)
     .subscribe(() => {
-      const updatedPosts=this.posts.filter(post => post.id != id);
+      const updatedPosts = this.posts.filter(post => post.id !== id);
       this.posts = updatedPosts;
       this.postsUpdated.next([...this.posts]);
 
