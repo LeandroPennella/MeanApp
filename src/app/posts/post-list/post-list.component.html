@@ -9,7 +9,7 @@
     <p>{{ post.contenido }}</p>
 
     <mat-action-row>
-      <button mat-button color="primary">EDITAR</button>
+      <a mat-button color="primary" [routerLink]="['/edit', post.id]" routerLinkActive="router-link-active" >EDITAR</a>
       <button mat-button color="warn" (click)="onDelete(post.id)">BORRAR</button>
     </mat-action-row>
 
