@@ -33,6 +33,11 @@ export class PostCreateComponent implements OnInit{
       } else {
         this.mode = 'create';
         this.postId = null;
+        this.post =     {
+          id: null,
+          titulo: null,
+          contenido: null
+        };
       }
     });
   }

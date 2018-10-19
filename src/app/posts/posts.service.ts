@@ -27,6 +27,7 @@ export class PostsService {
         }
       ))
       .subscribe((parsedPosts) => {
+        console.log('posteos traidos de servidor a local');
         this.posts = parsedPosts;
         this.postsUpdated.next([...this.posts]);
       });
@@ -54,16 +55,20 @@ export class PostsService {
 
   updatePost(post: Post) {
     this.httpClient
-    .patch('http://localhost:3000/api/posts/' + post.id, post)
-    .subscribe ( response => console.log(response));
+    .put('http://localhost:3000/api/posts/' + post.id, post)
+    .subscribe ( (responseData) => {
+      console.log('post ' + post.id + ' updated in local ' + responseData);
+    });
   }
 
   deletePost(id: string) {
     this.httpClient.delete('http://localhost:3000/api/posts/' + id)
     .subscribe(() => {
+
       const updatedPosts = this.posts.filter(post => post.id !== id);
       this.posts = updatedPosts;
       this.postsUpdated.next([...this.posts]);
+      console.log('post ' + id + ' deleted from local');
 
     });
   }

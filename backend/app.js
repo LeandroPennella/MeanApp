@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({extended: false }));
 app.use((request,response, next) =>  {
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  response.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+  response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
   next();
 });
 
@@ -40,6 +40,7 @@ app.use((request,response, next) =>  {
 app.get('/api/posts', (request,response, next) =>   {
 
   Post.find().then((documents) => {
+    console.log('api>posteos obtenidos de servidor')
     console.log(documents);
     response.status(200).json({
       message: 'posteos pasados correctamente',
@@ -59,6 +60,7 @@ app.post('/api/posts', (request,response, next) =>   {
 
   // console.log(post);
   post.save().then(resultado => {
+    console.log('api>post ' + resultado._id + 'agregado en servidor')
     response.status(201).json({
       message: 'Posteo agregado',
       id: resultado._id
@@ -67,7 +69,7 @@ app.post('/api/posts', (request,response, next) =>   {
 //para seguir
 });
 
-app.patch('/api/posts/:id', (request, response, next) =>   {
+app.put('/api/posts/:id', (request, response, next) =>   {
   Post.updateOne({_id: request.params.id},
     new Post({
       _id: request.body.id,
@@ -75,6 +77,7 @@ app.patch('/api/posts/:id', (request, response, next) =>   {
       contenido: request.body.contenido
     }))
     .then((resultado) => {
+      console.log('api> post ' + id + ' editado en servidor');
       console.log(resultado);
       response.status(200).json({mensaje: "Post modificado"});
     });
@@ -82,6 +85,7 @@ app.patch('/api/posts/:id', (request, response, next) =>   {
 
 app.delete('/api/posts/:id', (request, response, next) => {
   Post.deleteOne({_id:request.params.id}).then( resultado => {
+    console.log('api> post ' + id + ' borrado en servidor');
     console.log(resultado);
     response.status(200).json({ message: 'post eliminado'});
   });
