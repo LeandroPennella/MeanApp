@@ -15,9 +15,11 @@ import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_di
 export class PostCreateComponent implements OnInit{
   textoIngresado = '';
   tituloIngresado = '';
+  post: Post;             //es publico porque tiene que verse desde el html?
+
   private mode = 'create';
   private postId: string;
-  private post: Post;
+
 
   // @Output() postCreated = new EventEmitter<Post>();
 
@@ -32,23 +34,36 @@ export class PostCreateComponent implements OnInit{
         this.mode = 'create';
         this.postId = null;
       }
-    })
+    });
   }
-  onAddPost(form: NgForm) {
+  onSavePost(form: NgForm) {
     // console.dir(postInput);
 
     // this.newPost = this.textoIngresado;
     if (form.invalid) {
       return;
     }
+    /*
     const post: Post = {
       id: null,
       titulo: form.value.tituloIngresado,
       contenido: form.value.textoIngresado
     };
-
+*/
+  if (this.mode === 'create') {
     // this.postCreated.emit(post);
-    this.postsService.addPost(post);
+    this.postsService.addPost({
+        id: null,
+        titulo: form.value.tituloIngresado,
+        contenido: form.value.textoIngresado
+      });
+    } else {
+      this.postsService.updatePost({
+        id: this.postId,
+        titulo: form.value.tituloIngresado,
+        contenido: form.value.textoIngresado
+      });
+    }
     form.resetForm();
 
   }

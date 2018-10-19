@@ -36,6 +36,20 @@ app.use((request,response, next) =>  {
   next();
 });
 
+
+app.get('/api/posts', (request,response, next) =>   {
+
+  Post.find().then((documents) => {
+    console.log(documents);
+    response.status(200).json({
+      message: 'posteos pasados correctamente',
+      posts: documents
+    })
+  });
+
+});
+
+
 app.post('/api/posts', (request,response, next) =>   {
   const post = new Post({
 //    id = null,
@@ -52,16 +66,18 @@ app.post('/api/posts', (request,response, next) =>   {
   });
 //para seguir
 });
-app.get('/api/posts', (request,response, next) =>   {
 
-  Post.find().then((documents) => {
-    console.log(documents);
-    response.status(200).json({
-      message: 'posteos pasados correctamente',
-      posts: documents
-    })
-  });
-
+app.patch('/api/posts/:id', (request, response, next) =>   {
+  Post.updateOne({_id: request.params.id},
+    new Post({
+      _id: request.body.id,
+      titulo: request.body.titulo,
+      contenido: request.body.contenido
+    }))
+    .then((resultado) => {
+      console.log(resultado);
+      response.status(200).json({mensaje: "Post modificado"});
+    });
 });
 
 app.delete('/api/posts/:id', (request, response, next) => {

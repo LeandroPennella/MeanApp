@@ -41,14 +41,21 @@ export class PostsService {
       return {...this.posts.find(p => p.id === id)};
   }
 
-  addPost(post) {
-    this.httpClient.post<{message: string, id: string}>('http://localhost:3000/api/posts', post)
+  addPost(post: Post) {
+    this.httpClient
+      .post<{message: string, id: string}>('http://localhost:3000/api/posts', post)
       .subscribe((responseData) => {
         console.log(responseData.message);
         post.id = responseData.id;
         this.posts.push (post);
         this.postsUpdated.next([...this.posts]);
       });
+  }
+
+  updatePost(post: Post) {
+    this.httpClient
+    .patch('http://localhost:3000/api/posts/' + post.id, post)
+    .subscribe ( response => console.log(response));
   }
 
   deletePost(id: string) {

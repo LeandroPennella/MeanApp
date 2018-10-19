@@ -2,14 +2,14 @@
 <!--<button (click)="onAddPost(postInput)">Guardar</button>-->
 
 <mat-card>
-  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+  <form (submit)="onSavePost(postForm)" #postForm="ngForm">
     <mat-form-field>
       <input
         matInput
         type="text"
         name="tituloIngresado"
         #tituloIngresado="ngModel"
-        ngModel
+        [ngModel] = "post.titulo"
         required
         placeholder="Titulo"
         minlength="3" />
@@ -24,7 +24,8 @@
       #textoIngresado="ngModel"
       required
       placeholder="Contenido"
-      ngModel></textarea>
+      [ngModel] = "post.contenido"
+      ></textarea>
       <mat-error *ngIf="textoIngresado.invalid">Ingrese un contenido</mat-error>
   </mat-form-field>
   <button
