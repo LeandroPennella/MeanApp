@@ -46,29 +46,31 @@ export class PostsService {
     this.httpClient
       .post<{message: string, id: string}>('http://localhost:3000/api/posts', post)
       .subscribe((responseData) => {
-        console.log(responseData.message);
+        console.log('svc >' + responseData.message);
         post.id = responseData.id;
         this.posts.push (post);
         this.postsUpdated.next([...this.posts]);
+        console.log('svc > post ' + post.id + ' agregado a local');
       });
   }
 
   updatePost(post: Post) {
     this.httpClient
-    .put('http://localhost:3000/api/posts/' + post.id, post)
+    .put<{message: string}>('http://localhost:3000/api/posts/' + post.id, post)
     .subscribe ( (responseData) => {
-      console.log('post ' + post.id + ' updated in local ' + responseData);
+      console.log('svc > ' + responseData.message);
     });
   }
 
   deletePost(id: string) {
-    this.httpClient.delete('http://localhost:3000/api/posts/' + id)
-    .subscribe(() => {
-
+    this.httpClient
+    .delete('http://localhost:3000/api/posts/' + id)
+    .subscribe((responseData) => {
+      console.log('svc > ' + responseData);
       const updatedPosts = this.posts.filter(post => post.id !== id);
       this.posts = updatedPosts;
       this.postsUpdated.next([...this.posts]);
-      console.log('post ' + id + ' deleted from local');
+      console.log('svc > post ' + id + ' deleted from local');
 
     });
   }

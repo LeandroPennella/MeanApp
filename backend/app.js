@@ -43,7 +43,7 @@ app.get('/api/posts', (request,response, next) =>   {
     console.log('api>posteos obtenidos de servidor')
     console.log(documents);
     response.status(200).json({
-      message: 'posteos pasados correctamente',
+      message: 'posteos obtenidos',
       posts: documents
     })
   });
@@ -60,9 +60,9 @@ app.post('/api/posts', (request,response, next) =>   {
 
   // console.log(post);
   post.save().then(resultado => {
-    console.log('api>post ' + resultado._id + 'agregado en servidor')
+    console.log('api>post ' + resultado._id + ' agregado en servidor')
     response.status(201).json({
-      message: 'Posteo agregado',
+      message: 'api>svc: Posteo agregado',
       id: resultado._id
    });
   });
@@ -77,17 +77,19 @@ app.put('/api/posts/:id', (request, response, next) =>   {
       contenido: request.body.contenido
     }))
     .then((resultado) => {
-      console.log('api> post ' + id + ' editado en servidor');
+      mensaje = 'api> post ' + request.body.id + ' editado en servidor';
+      console.log(mensaje);
       console.log(resultado);
-      response.status(200).json({mensaje: "Post modificado"});
+      response.status(200).json({message: mensaje});
     });
 });
 
 app.delete('/api/posts/:id', (request, response, next) => {
   Post.deleteOne({_id:request.params.id}).then( resultado => {
-    console.log('api> post ' + id + ' borrado en servidor');
+    mensaje = 'api> post ' + request.body.id + ' eliminado en servidor';
+    console.log(mensaje);
     console.log(resultado);
-    response.status(200).json({ message: 'post eliminado'});
+    response.status(200).json({mensaje});
   });
 });
 
