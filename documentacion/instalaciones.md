@@ -1,30 +1,39 @@
 
-##node, npm, ng, cli
+# Instalaciones
 
-#node
+## node
 
-#npm
+## npm
 
-#ng
+## ng
 
-#cli
+
+## cli
+
 npm install -g @angular/cli
 
 
-##Material
+## Material
 //npm install --save @angular/Material
 ng add @angular/material
 
 
-##express
+## express
+
 npm install --save express
 
 
-##nodemon
+## nodemon
+
 npm install --save-dev nodemon
 
 
+## bodyparser
+
 npm install --save body-parser
+
+
+## mongodb
 
 //npm install --save mongodb
 npm install --save mongoose

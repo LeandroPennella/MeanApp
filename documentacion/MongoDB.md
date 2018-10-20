@@ -1,42 +1,27 @@
-### Node
+# MongoDB
 
-npm run start:server
-
-
-
-### Angular
-
-"ng serve" to see the app in action (try "npm start" in case "ng serve" fails).
-
-
-
-### MongoDB
-
-## LOCAL
-
-//Servidor
+## Servidor Local
 
 C:
 cd "C:\Program Files\MongoDB\Server\4.0\bin\"
 .\mongod
 
 
-//GUI
+## GUI
 
 C:
 cd "C:\Users\fincu\AppData\Local\MongoDBCompass\"
 .\MongoDBCompass.exe
 
 
-//Shell
+## Shell
+
+* Local *
 
 .\mongo "mongodb://localhost/nodeapdb"
 db.posts.find()
 
-
-## Nube
-
-//Shell
+* Nube *
 
 .\mongo "mongodb+srv://cluster0-xwx8a.mongodb.net/test" --username meanapp
 CfU5gAhfFMmpI9kW
