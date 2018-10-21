@@ -9,7 +9,7 @@
         type="text"
         name="tituloIngresado"
         #tituloIngresado="ngModel"
-        [ngModel] = "post.titulo"
+        [ngModel] = "post?.titulo"
         required
         placeholder="Titulo"
         minlength="3" />
@@ -24,7 +24,7 @@
       #textoIngresado="ngModel"
       required
       placeholder="Contenido"
-      [ngModel] = "post.contenido"
+      [ngModel] = "post?.contenido"
       ></textarea>
       <mat-error *ngIf="textoIngresado.invalid">Ingrese un contenido</mat-error>
   </mat-form-field>

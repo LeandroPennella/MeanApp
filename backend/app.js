@@ -51,6 +51,23 @@ app.get('/api/posts', (request,response, next) =>   {
 
 });
 
+app.get('/api/posts/:id', (request,response, next) =>   {
+
+  Post.findById(request.params.id).then((post) => {
+    if (post) {
+       mensaje = 'api > post ' + request.params.id   + ' obtenidos de servidor';
+      console.log(mensaje)
+      console.log(post);
+      response.status(200).json({
+        message: mensaje,
+        post: post
+      })
+    } else {
+      response.status(404).json({message: 'Post inexistente'});
+    }
+  });
+
+});
 
 app.post('/api/posts', (request,response, next) =>   {
   const post = new Post({

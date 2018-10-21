@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { stringify } from '@angular/core/src/util';
 
 @Injectable({providedIn: 'root'})
 export class PostsService {
@@ -41,7 +42,22 @@ export class PostsService {
   }
 
   getPost(id: string) {
-      return {...this.posts.find(p => p.id === id)};
+    return this.httpClient.
+      get<{message: string, post: any}>('http://localhost:3000/api/posts/' + id)
+      .pipe(
+        map((responseData) => {
+          console.log('svc > ' + responseData.message);
+          return {
+            titulo: responseData.post.titulo,
+            contenido: responseData.post.contenido,
+            id: responseData.post._id
+          };
+        }));
+        /*
+      .subscribe((parsedPost) => {
+        return {...this.posts.find(p => p.id === id)};
+      });
+*/
   }
 
   addPost(post: Post) {
@@ -61,6 +77,11 @@ export class PostsService {
     .put<{message: string}>('http://localhost:3000/api/posts/' + post.id, post)
     .subscribe ( (responseData) => {
       console.log('svc > ' + responseData.message);
+      const updatedPosts = [...this.posts];
+      const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+      updatedPosts[oldPostIndex] = post;
+      this.posts = updatedPosts;
+      this.postsUpdated.next([...this.posts]);
     });
   }
 
