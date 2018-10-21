@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({extended: false }));
 app.use((request,response, next) =>  {
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  response.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+  response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
   next();
 });
 
@@ -40,15 +40,34 @@ app.use((request,response, next) =>  {
 app.get('/api/posts', (request,response, next) =>   {
 
   Post.find().then((documents) => {
+    mensaje = 'api > posteos obtenidos de servidor';
+    console.log(mensaje)
     console.log(documents);
     response.status(200).json({
-      message: 'posteos pasados correctamente',
+      message: mensaje,
       posts: documents
     })
   });
 
 });
 
+app.get('/api/posts/:id', (request,response, next) =>   {
+
+  Post.findById(request.params.id).then((post) => {
+    if (post) {
+       mensaje = 'api > post ' + request.params.id   + ' obtenidos de servidor';
+      console.log(mensaje)
+      console.log(post);
+      response.status(200).json({
+        message: mensaje,
+        post: post
+      })
+    } else {
+      response.status(404).json({message: 'Post inexistente'});
+    }
+  });
+
+});
 
 app.post('/api/posts', (request,response, next) =>   {
   const post = new Post({
@@ -59,15 +78,18 @@ app.post('/api/posts', (request,response, next) =>   {
 
   // console.log(post);
   post.save().then(resultado => {
+    mensaje = 'api>post ' + resultado._id + ' agregado en servidor';
+
+    console.log(mensaje)
     response.status(201).json({
-      message: 'Posteo agregado',
+      message: mensaje,
       id: resultado._id
    });
   });
 //para seguir
 });
 
-app.patch('/api/posts/:id', (request, response, next) =>   {
+app.put('/api/posts/:id', (request, response, next) =>   {
   Post.updateOne({_id: request.params.id},
     new Post({
       _id: request.body.id,
@@ -75,15 +97,19 @@ app.patch('/api/posts/:id', (request, response, next) =>   {
       contenido: request.body.contenido
     }))
     .then((resultado) => {
+      mensaje = 'api> post ' + request.body.id + ' editado en servidor';
+      console.log(mensaje);
       console.log(resultado);
-      response.status(200).json({mensaje: "Post modificado"});
+      response.status(200).json({message: mensaje});
     });
 });
 
 app.delete('/api/posts/:id', (request, response, next) => {
   Post.deleteOne({_id:request.params.id}).then( resultado => {
+    mensaje = 'api> post ' + request.body.id + ' eliminado en servidor';
+    console.log(mensaje);
     console.log(resultado);
-    response.status(200).json({ message: 'post eliminado'});
+    response.status(200).json({mensaje});
   });
 });
 
