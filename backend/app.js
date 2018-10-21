@@ -40,10 +40,11 @@ app.use((request,response, next) =>  {
 app.get('/api/posts', (request,response, next) =>   {
 
   Post.find().then((documents) => {
-    console.log('api>posteos obtenidos de servidor')
+    mensaje = 'api > posteos obtenidos de servidor';
+    console.log(mensaje)
     console.log(documents);
     response.status(200).json({
-      message: 'posteos obtenidos',
+      message: mensaje,
       posts: documents
     })
   });
@@ -60,9 +61,11 @@ app.post('/api/posts', (request,response, next) =>   {
 
   // console.log(post);
   post.save().then(resultado => {
-    console.log('api>post ' + resultado._id + ' agregado en servidor')
+    mensaje = 'api>post ' + resultado._id + ' agregado en servidor';
+
+    console.log(mensaje)
     response.status(201).json({
-      message: 'api>svc: Posteo agregado',
+      message: mensaje,
       id: resultado._id
    });
   });

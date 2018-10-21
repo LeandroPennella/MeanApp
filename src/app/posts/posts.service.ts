@@ -16,8 +16,9 @@ export class PostsService {
     this.httpClient
       .get<{message: string, posts: any}>('http://localhost:3000/api/posts')
       .pipe(
-        map((postData) => {
-          return postData.posts.map(post => {
+        map((responseData) => {
+          console.log('svc > ' + responseData.message);
+          return responseData.posts.map(post => {
             return {
               titulo: post.titulo,
               contenido: post.contenido,
@@ -27,9 +28,10 @@ export class PostsService {
         }
       ))
       .subscribe((parsedPosts) => {
-        console.log('posteos traidos de servidor a local');
+
         this.posts = parsedPosts;
         this.postsUpdated.next([...this.posts]);
+        console.log('svc > posts cargados en local');
       });
 
   }
