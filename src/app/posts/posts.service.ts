@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { stringify } from '@angular/core/src/util';
+
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<Post[]>();
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
   getPosts() {
     // return [...this.posts]; // genera una copia de posts (sino devolveria la referencia)
 
@@ -69,6 +70,7 @@ export class PostsService {
         this.posts.push (post);
         this.postsUpdated.next([...this.posts]);
         console.log('svc > post ' + post.id + ' agregado a local');
+        this.router.navigate(['/']);
       });
   }
 
@@ -82,6 +84,7 @@ export class PostsService {
       updatedPosts[oldPostIndex] = post;
       this.posts = updatedPosts;
       this.postsUpdated.next([...this.posts]);
+      this.router.navigate(['/']);
     });
   }
 

@@ -16,7 +16,7 @@ export class PostCreateComponent implements OnInit{
   textoIngresado = '';
   tituloIngresado = '';
   post: Post;             //es publico porque tiene que verse desde el html?
-
+  isLoading = false;
   private mode = 'create';
   private postId: string;
 
@@ -29,8 +29,9 @@ export class PostCreateComponent implements OnInit{
       if (paramMap.has('id')){
         this.mode = 'edit';
         this.postId = paramMap.get('id');
-        // this.post = this.postsService.getPost(this.postId);
+        this.isLoading = true;
         this.postsService.getPost(this.postId).subscribe((postData) => {
+          this.isLoading = false;
           this.post = postData;
         });
       } else {
@@ -58,6 +59,7 @@ export class PostCreateComponent implements OnInit{
       contenido: form.value.textoIngresado
     };
 */
+  this.isLoading = true;
   if (this.mode === 'create') {
     // this.postCreated.emit(post);
     this.postsService.addPost({
@@ -73,6 +75,6 @@ export class PostCreateComponent implements OnInit{
       });
     }
     form.resetForm();
-
+    // TODO: redireccion aca en lugar de en servicio?
   }
 }
