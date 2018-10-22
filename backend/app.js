@@ -11,6 +11,7 @@ const app = express();
 mongoose.connect(
   // "mongodb+srv://meanapp:CfU5gAhfFMmpI9kW@cluster0-xwx8a.mongodb.net/nodeangular?retryWrites=true"
    "mongodb://localhost/nodeapdb"
+
   )
   .then(() => {
     console.log('Conectado');
