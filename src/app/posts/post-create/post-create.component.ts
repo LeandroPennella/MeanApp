@@ -1,6 +1,6 @@
 import { Component, /*, EventEmitter, Output*/
 OnInit} from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Post } from '../Post.model';
 import { PostsService } from '../posts.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -17,6 +17,7 @@ export class PostCreateComponent implements OnInit{
   tituloIngresado = '';
   post: Post;             //es publico porque tiene que verse desde el html?
   isLoading = false;
+  form: FormGroup;
   private mode = 'create';
   private postId: string;
 
@@ -25,14 +26,28 @@ export class PostCreateComponent implements OnInit{
 
   constructor(public postsService: PostsService, public route: ActivatedRoute) {}
   ngOnInit() {
+    this.form = new FormGroup({
+      'tituloIngresado': new FormControl(
+        null,
+        {validators: [Validators.required, Validators.minLength(3)]
+      }),
+      'textoIngresado': new FormControl(
+        null,
+        {validators: [Validators.required]}
+      )
+    });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('id')){
+      if (paramMap.has('id')) {
         this.mode = 'edit';
         this.postId = paramMap.get('id');
         this.isLoading = true;
         this.postsService.getPost(this.postId).subscribe((postData) => {
           this.isLoading = false;
           this.post = postData;
+          this.form.setValue({
+            'tituloIngresado': this.post.titulo,
+            'textoIngresado': this.post.contenido
+          });
         });
       } else {
         this.mode = 'create';
@@ -45,36 +60,31 @@ export class PostCreateComponent implements OnInit{
       }
     });
   }
-  onSavePost(form: NgForm) {
+  onSavePost() {
     // console.dir(postInput);
 
     // this.newPost = this.textoIngresado;
-    if (form.invalid) {
+    if (this.form.invalid) {
       return;
     }
-    /*
-    const post: Post = {
-      id: null,
-      titulo: form.value.tituloIngresado,
-      contenido: form.value.textoIngresado
-    };
-*/
+
+
   this.isLoading = true;
   if (this.mode === 'create') {
     // this.postCreated.emit(post);
     this.postsService.addPost({
         id: null,
-        titulo: form.value.tituloIngresado,
-        contenido: form.value.textoIngresado
+        titulo: this.form.value.tituloIngresado,
+        contenido: this.form.value.textoIngresado
       });
     } else {
       this.postsService.updatePost({
         id: this.postId,
-        titulo: form.value.tituloIngresado,
-        contenido: form.value.textoIngresado
+        titulo: this.form.value.tituloIngresado,
+        contenido: this.form.value.textoIngresado
       });
     }
-    form.resetForm();
+    this.form.reset();
     // TODO: redireccion aca en lugar de en servicio?
   }
 }
