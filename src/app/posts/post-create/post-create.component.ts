@@ -18,6 +18,7 @@ export class PostCreateComponent implements OnInit{
   post: Post;             //es publico porque tiene que verse desde el html?
   isLoading = false;
   form: FormGroup;
+  imagePreview: string;
   private mode = 'create';
   private postId: string;
 
@@ -68,6 +69,11 @@ export class PostCreateComponent implements OnInit{
     this.form.get('imagenSubida').updateValueAndValidity();
     console.log(file);
     console.log(this.form);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    }
+    reader.readAsDataURL(file);
   }
   onSavePost() {
     // console.dir(postInput);
