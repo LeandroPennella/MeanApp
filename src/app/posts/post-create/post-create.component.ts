@@ -64,7 +64,7 @@ export class PostCreateComponent implements OnInit{
   }
 
   onImagePicked(event: Event){
-    const file=(event.target as HTMLInputElement).files[0];
+    const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({imagenSubida: file});
     this.form.get('imagenSubida').updateValueAndValidity();
     console.log(file);
