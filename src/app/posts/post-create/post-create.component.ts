@@ -4,18 +4,18 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Post } from '../Post.model';
 import { PostsService } from '../posts.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
-
+// import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
+import { mimeType} from './mime-type.validator';
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
   styleUrls: ['./post-create.component.css']
 
 })
-export class PostCreateComponent implements OnInit{
+export class PostCreateComponent implements OnInit {
   textoIngresado = '';
   tituloIngresado = '';
-  post: Post;             //es publico porque tiene que verse desde el html?
+  post: Post;             // es publico porque tiene que verse desde el html?
   isLoading = false;
   form: FormGroup;
   imagePreview: string;
@@ -35,7 +35,7 @@ export class PostCreateComponent implements OnInit{
         null, {validators: [Validators.required]}
       ),
       'imagenSubida': new FormControl(
-        null, {validators: [Validators.required]}
+        null, {validators: [Validators.required] , asyncValidators: [mimeType]}
       )
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -63,16 +63,17 @@ export class PostCreateComponent implements OnInit{
     });
   }
 
-  onImagePicked(event: Event){
+  onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({imagenSubida: file});
     this.form.get('imagenSubida').updateValueAndValidity();
     console.log(file);
     console.log(this.form);
+
     const reader = new FileReader();
     reader.onload = () => {
       this.imagePreview = reader.result;
-    }
+    };
     reader.readAsDataURL(file);
   }
   onSavePost() {
