@@ -37,3 +37,6 @@ npm install --save body-parser
 
 //npm install --save mongodb
 npm install --save mongoose
+
+## multer (upload)
+npm install --save multer
