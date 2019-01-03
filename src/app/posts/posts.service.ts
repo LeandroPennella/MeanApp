@@ -33,7 +33,7 @@ export class PostsService {
 
         this.posts = parsedPosts;
         this.postsUpdated.next([...this.posts]);
-        console.log('svc > posts cargados en local');
+        //console.log('svc > posts cargados en local');
       });
 
   }
@@ -61,13 +61,17 @@ export class PostsService {
 */
   }
 
-  addPost(post: Post) {
+  addPost(post: Post, imagen: File) {
+    const postData = new FormData();
+    postData.append('titulo', post.titulo);
+    postData.append('contenido', post.contenido);
+    postData.append('imagen', imagen, post.titulo);
     this.httpClient
-      .post<{message: string, id: string}>('http://localhost:3000/api/posts', post)
+      .post<{message: string, id: string}>('http://localhost:3000/api/posts', postData)
       .subscribe((responseData) => {
         console.log('svc >' + responseData.message);
         post.id = responseData.id;
-        this.posts.push (post);
+        this.posts.push ({id: post.id, titulo: post.titulo, contenido: post.contenido, imagen: imagen});
         this.postsUpdated.next([...this.posts]);
         console.log('svc > post ' + post.id + ' agregado a local');
         this.router.navigate(['/']);

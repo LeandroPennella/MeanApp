@@ -61,7 +61,7 @@ router.get('/:id', (request,response, next) =>   {
 
 });
 
-router.post('', multer(storage).single("image"), (request,response, next) =>   {
+router.post('', multer(storage).single("imagen"), (request,response, next) =>   {
   const post = new Post({
 //    id = null,
     titulo: request.body.titulo,

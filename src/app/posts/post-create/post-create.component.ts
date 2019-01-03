@@ -49,6 +49,7 @@ export class PostCreateComponent implements OnInit {
           this.form.setValue({
             'tituloIngresado': this.post.titulo,
             'textoIngresado': this.post.contenido
+            //,'imagenSeleccionada':this.post.imagen
           });
         });
       } else {
@@ -57,7 +58,7 @@ export class PostCreateComponent implements OnInit {
         this.post =     {
           id: null,
           titulo: null,
-          contenido: null
+          contenido: null//,imagen: null
         };
       }
     });
@@ -76,6 +77,7 @@ export class PostCreateComponent implements OnInit {
     };
     reader.readAsDataURL(file);
   }
+
   onSavePost() {
     // console.dir(postInput);
 
@@ -83,24 +85,22 @@ export class PostCreateComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-
-
-  this.isLoading = true;
-  if (this.mode === 'create') {
-    // this.postCreated.emit(post);
-    this.postsService.addPost({
-        id: null,
-        titulo: this.form.value.tituloIngresado,
-        contenido: this.form.value.textoIngresado
-      });
-    } else {
-      this.postsService.updatePost({
-        id: this.postId,
-        titulo: this.form.value.tituloIngresado,
-        contenido: this.form.value.textoIngresado
-      });
+    this.isLoading = true;
+    if (this.mode === 'create') {
+      // this.postCreated.emit(post);
+      this.postsService.addPost({
+          id: null,
+          titulo: this.form.value.tituloIngresado,
+          contenido: this.form.value.textoIngresado //,imagen: this.form.value.imagenSeleccionada
+        });
+      } else {
+        this.postsService.updatePost({
+          id: this.postId,
+          titulo: this.form.value.tituloIngresado,
+          contenido: this.form.value.textoIngresado //,imagen: this.form.value.imagenSeleccionada
+        });
+      }
+      this.form.reset();
+      // TODO: redireccion aca en lugar de en servicio?
     }
-    this.form.reset();
-    // TODO: redireccion aca en lugar de en servicio?
-  }
 }
