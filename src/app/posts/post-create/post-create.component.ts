@@ -34,7 +34,7 @@ export class PostCreateComponent implements OnInit {
       'textoIngresado': new FormControl(
         null, {validators: [Validators.required]}
       ),
-      'imagenSubida': new FormControl(
+      'imagenIngresada': new FormControl(
         null, {validators: [Validators.required] , asyncValidators: [mimeType]}
       )
     });
@@ -48,8 +48,8 @@ export class PostCreateComponent implements OnInit {
           this.post = postData;
           this.form.setValue({
             'tituloIngresado': this.post.titulo,
-            'textoIngresado': this.post.contenido
-            //,'imagenSeleccionada':this.post.imagen
+            'textoIngresado': this.post.contenido,
+            'imagenIngresada': this.post.imagen
           });
         });
       } else {
@@ -58,7 +58,8 @@ export class PostCreateComponent implements OnInit {
         this.post =     {
           id: null,
           titulo: null,
-          contenido: null//,imagen: null
+          contenido: null,
+          imagen: null
         };
       }
     });
@@ -66,8 +67,8 @@ export class PostCreateComponent implements OnInit {
 
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({imagenSubida: file});
-    this.form.get('imagenSubida').updateValueAndValidity();
+    this.form.patchValue({imagenIngresada: file});
+    this.form.get('imagenIngresada').updateValueAndValidity();
     console.log(file);
     console.log(this.form);
 
@@ -91,16 +92,18 @@ export class PostCreateComponent implements OnInit {
       this.postsService.addPost({
           id: null,
           titulo: this.form.value.tituloIngresado,
-          contenido: this.form.value.textoIngresado //,imagen: this.form.value.imagenSeleccionada
-        });
-      } else {
-        this.postsService.updatePost({
-          id: this.postId,
-          titulo: this.form.value.tituloIngresado,
-          contenido: this.form.value.textoIngresado //,imagen: this.form.value.imagenSeleccionada
-        });
-      }
-      this.form.reset();
-      // TODO: redireccion aca en lugar de en servicio?
+          contenido: this.form.value.textoIngresado,
+          imagen: this.form.value.imagenIngresada
+      });
+    } else {
+      this.postsService.updatePost({
+        id: this.postId,
+        titulo: this.form.value.tituloIngresado,
+        contenido: this.form.value.textoIngresado,
+        imagen: this.form.value.imagenIngresada
+      });
     }
+    this.form.reset();
+    // TODO: redireccion aca en lugar de en servicio?
+  }
 }
