@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
     }
     callback(error, "backend/images");
   },
-  filename: (reques, file, callback) => {
+  filename: (request, file, callback) => {
     const name = file.originalname.toLowerCase().split(' ').join('-');
     const ext = MIME_TYPE_MAP[file.mimetype];
     callback(null, name + '-' + Date.now() + '.' + ext);
@@ -62,10 +62,12 @@ router.get('/:id', (request,response, next) =>   {
 });
 
 router.post('', multer({storage: storage}).single("imagen"), (request,response, next) =>   {
+  const url = request.protocol + '://'+ request.get ("host");
   const post = new Post({
 //    id = null,
     titulo: request.body.titulo,
-    contenido: request.body.contenido
+    contenido: request.body.contenido,
+    imagePath: url + "/images/" + request.file.filename
   });
 
   // console.log(post);
@@ -75,7 +77,15 @@ router.post('', multer({storage: storage}).single("imagen"), (request,response, 
     console.log(mensaje)
     response.status(201).json({
       message: mensaje,
-      id: resultado._id
+      post: {
+        /*
+        titulo: resultado.titulo,
+        contenido: resultado.contenido,
+        imagePath: resultado.imagePath
+        */
+        ...resultado,
+        id: resultado._id,
+      }
    });
   });
 //para seguir
