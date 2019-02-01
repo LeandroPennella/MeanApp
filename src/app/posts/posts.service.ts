@@ -78,11 +78,13 @@ export class PostsService {
         this.posts.push ({
 
           // todo: ... addedPost
-
+/*
           id: addedPost.id,
           titulo: addedPost.titulo,
           contenido: addedPost.contenido,
           imagen: null, // addedPost.imagen,
+          */
+          ...addedPost,
           imagePath: responseData.post.imagePath
         });
         this.postsUpdated.next([...this.posts]);
