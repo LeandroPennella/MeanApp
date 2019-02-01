@@ -53,7 +53,8 @@ export class PostsService {
             titulo: responseData.post.titulo,
             contenido: responseData.post.contenido,
             id: responseData.post._id,
-            imagen: null //TODO: resolver
+            imagen: null, //TODO: resolverpostData
+            imagePath: null
           };
         }));
         /*
@@ -73,7 +74,12 @@ export class PostsService {
       .subscribe((responseData) => {
         console.log('svc >' + responseData.message);
         post.id = responseData.id;
-        this.posts.push ({id: post.id, titulo: post.titulo, contenido: post.contenido, imagen: post.imagen});
+        this.posts.push ({
+          id: post.id,
+          titulo: post.titulo,
+          contenido: post.contenido,
+          imagen: post.imagen,
+          imagePath: null});
         this.postsUpdated.next([...this.posts]);
         console.log('svc > post ' + post.id + ' agregado a local');
         this.router.navigate(['/']);

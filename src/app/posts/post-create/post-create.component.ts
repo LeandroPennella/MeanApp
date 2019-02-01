@@ -59,7 +59,8 @@ export class PostCreateComponent implements OnInit {
           id: null,
           titulo: null,
           contenido: null,
-          imagen: null
+          imagen: null,
+          imagePath: null
         };
       }
     });
@@ -93,14 +94,16 @@ export class PostCreateComponent implements OnInit {
           id: null,
           titulo: this.form.value.tituloIngresado,
           contenido: this.form.value.textoIngresado,
-          imagen: this.form.value.imagenIngresada
+          imagen: this.form.value.imagenIngresada,
+          imagePath: null
       });
     } else {
       this.postsService.updatePost({
         id: this.postId,
         titulo: this.form.value.tituloIngresado,
         contenido: this.form.value.textoIngresado,
-        imagen: this.form.value.imagenIngresada
+        imagen: this.form.value.imagenIngresada,
+        imagePath: null
       });
     }
     this.form.reset();
