@@ -1,7 +1,12 @@
 
 # Instalaciones
+## mongodb
+https://www.mongodb.com/download-center/community
+
+//todo: set dir
 
 ## node
+https://nodejs.org/es/
 
 ## npm
 
@@ -9,9 +14,8 @@
 
 
 ## cli
-
 npm install -g @angular/cli
-
+npm install --save-dev @angular/cli@latest
 
 ## Material
 //npm install --save @angular/Material
