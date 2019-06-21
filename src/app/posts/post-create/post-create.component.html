@@ -30,9 +30,10 @@
     <input type="file" #filePicker (change)="onImagePicked($event)">
   </div>
 
-<div class="image-preview" *ngIf="imagePreview !== '' && imagePreview &&  form.get('imagenIngresada').valid">
-  <img [src]="imagePreview" [alt]="form.value.tituloIngresado">
-</div>
+  <div class="image-preview" *ngIf="imagenIngresada &&  form.get('imagenIngresada').valid">
+    <img [src]="imagenIngresada" [alt]="form.value.tituloIngresado">
+  </div>
+
   <button
     mat-raised-button
     color="accent"

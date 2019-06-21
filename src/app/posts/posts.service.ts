@@ -25,7 +25,8 @@ export class PostsService {
               titulo: post.titulo,
               contenido: post.contenido,
               id: post._id,
-              imagen: null // resolver
+              imagen: null, // resolver
+              imagePath: post.imagePath
             };
           });
         }
@@ -64,24 +65,30 @@ export class PostsService {
 */
   }
 
-  addPost(post: Post) {
+  addPost(addedPost: Post) {
     const postData = new FormData();
-    postData.append('titulo', post.titulo);
-    postData.append('contenido', post.contenido);
-    postData.append('imagen', post.imagen, post.titulo);
+    postData.append('titulo', addedPost.titulo);
+    postData.append('contenido', addedPost.contenido);
+    postData.append('imagen', addedPost.imagen, addedPost.titulo);
     this.httpClient
-      .post<{message: string, id: string}>('http://localhost:3000/api/posts', postData)
+      .post<{message: string, post: Post}>('http://localhost:3000/api/posts', postData)
       .subscribe((responseData) => {
         console.log('svc >' + responseData.message);
-        post.id = responseData.id;
+        addedPost.id = responseData.post.id;
         this.posts.push ({
-          id: post.id,
-          titulo: post.titulo,
-          contenido: post.contenido,
-          imagen: post.imagen,
-          imagePath: null});
+
+          // todo: ... addedPost
+/*
+          id: addedPost.id,
+          titulo: addedPost.titulo,
+          contenido: addedPost.contenido,
+          imagen: null, // addedPost.imagen,
+          */
+          ...addedPost,
+          imagePath: responseData.post.imagePath
+        });
         this.postsUpdated.next([...this.posts]);
-        console.log('svc > post ' + post.id + ' agregado a local');
+        console.log('svc > post ' + addedPost.id + ' agregado a local');
         this.router.navigate(['/']);
       });
   }

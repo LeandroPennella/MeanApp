@@ -15,10 +15,11 @@ import { mimeType} from './mime-type.validator';
 export class PostCreateComponent implements OnInit {
   textoIngresado = '';
   tituloIngresado = '';
+  imagenIngresada: File;
   post: Post;             // es publico porque tiene que verse desde el html?
   isLoading = false;
   form: FormGroup;
-  imagePreview: string;
+  // imagePreview: string;
   private mode = 'create';
   private postId: string;
 
@@ -75,7 +76,8 @@ export class PostCreateComponent implements OnInit {
 
     const reader = new FileReader();
     reader.onload = () => {
-      this.imagePreview = reader.result;
+      //this.imagePreview = reader.result;
+      this.imagenIngresada = reader.result;
     };
     reader.readAsDataURL(file);
   }
