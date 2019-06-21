@@ -16,10 +16,11 @@ export class PostCreateComponent implements OnInit {
   textoIngresado = '';
   tituloIngresado = '';
   imagenIngresada: File;
+  imagePreview: string;   //correccion postupdate
   post: Post;             // es publico porque tiene que verse desde el html?
   isLoading = false;
   form: FormGroup;
-  // imagePreview: string;
+  
   private mode = 'create';
   private postId: string;
 
@@ -76,8 +77,9 @@ export class PostCreateComponent implements OnInit {
 
     const reader = new FileReader();
     reader.onload = () => {
-      //this.imagePreview = reader.result;
-      this.imagenIngresada = reader.result;
+      //this.imagenIngresada = reader.result;     //preupdate
+      this.imagePreview =  <string>reader.result; //correccion postUpdate -> //TODO: no carga preview al agregar imagen
+      
     };
     reader.readAsDataURL(file);
   }

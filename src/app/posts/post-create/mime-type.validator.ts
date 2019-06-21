@@ -6,7 +6,9 @@ export const mimeType = (control: AbstractControl): Promise<{[Key: string]: any}
   const fileReader = new FileReader();
   const fileReaderObservable = Observable.create((observer: Observer<{[Key: string]: any}>) => {
     fileReader.addEventListener('loadend', () => {
-      const arr = new Uint8Array(fileReader.result).subarray(0, 4);
+      //const arr = new Uint8Array(fileReader.result).subarray(0, 4);           //preupdate
+      const arr = new Uint8Array(<ArrayBuffer>fileReader.result).subarray(0, 4); //correccion postUpdate
+      
       let header = '';
       let isValid = false;
       for (let i = 0; i < arr.length; i++) {
