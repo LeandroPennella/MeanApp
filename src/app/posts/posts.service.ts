@@ -34,7 +34,7 @@ export class PostsService {
 
         this.posts = parsedPosts;
         this.postsUpdated.next([...this.posts]);
-        //console.log('svc > posts cargados en local');
+        // console.log('svc > posts cargados en local');
       });
 
   }
@@ -53,7 +53,7 @@ export class PostsService {
             titulo: responseData.post.titulo,
             contenido: responseData.post.contenido,
             id: responseData.post._id,
-            imagen: null, //TODO: resolverpostData
+            imagen: null, // TODO: resolverpostData
             imagePath: null
           };
         }));
