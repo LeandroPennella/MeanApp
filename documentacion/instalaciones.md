@@ -14,11 +14,11 @@ https://nodejs.org/es/
 
 
 ## cli
-npm install -g @angular/cli
-npm install --save-dev @angular/cli@latest
+npm install -g @angular/cli                 //global
+npm install --save-dev @angular/cli@latest  //local
 
 ## Material
-//npm install --save @angular/Material
+//npm install --save @angular/Material      //anterior a cli 6
 ng add @angular/material
 
 
