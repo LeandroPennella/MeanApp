@@ -30,8 +30,11 @@
     <input type="file" #filePicker (change)="onImagePicked($event)">
   </div>
 
+sarasa
+  {{form.value.imagenIngresadaPath}}
+  -
   <div class="image-preview" *ngIf="imagenIngresada &&  form.get('imagenIngresada').valid">
-    <img [src]="imagenIngresada" [alt]="form.value.tituloIngresado">
+    <img [src]="imagenIngresadaPath" [alt]="form.value.tituloIngresado">
   </div>
 
   <button

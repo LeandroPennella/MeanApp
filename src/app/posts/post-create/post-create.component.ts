@@ -16,7 +16,7 @@ export class PostCreateComponent implements OnInit {
   textoIngresado = '';
   tituloIngresado = '';
   imagenIngresada: File;
-  imagePreview: string;   //correccion postupdate
+  imagenIngresadaPath: string;   //-> imagePreview //correccion postupdate
   post: Post;             // es publico porque tiene que verse desde el html?
   isLoading = false;
   form: FormGroup;
@@ -29,6 +29,9 @@ export class PostCreateComponent implements OnInit {
 
   constructor(public postsService: PostsService, public route: ActivatedRoute) {}
   ngOnInit() {
+    
+    console.log('Editar');
+
     this.form = new FormGroup({
       'tituloIngresado': new FormControl(
         null, {validators: [Validators.required, Validators.minLength(3)]}
@@ -51,7 +54,8 @@ export class PostCreateComponent implements OnInit {
           this.form.setValue({
             'tituloIngresado': this.post.titulo,
             'textoIngresado': this.post.contenido,
-            'imagenIngresada': this.post.imagen
+            'imagenIngresada': this.post.imagen,
+            'imagenIngresadaPath': this.post.imagePath  //?
           });
         });
       } else {
@@ -72,13 +76,15 @@ export class PostCreateComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({imagenIngresada: file});
     this.form.get('imagenIngresada').updateValueAndValidity();
+    
+    console.log('pickin image...');
     console.log(file);
     console.log(this.form);
 
     const reader = new FileReader();
     reader.onload = () => {
-      //this.imagenIngresada = reader.result;     //preupdate
-      this.imagePreview =  <string>reader.result; //correccion postUpdate -> //TODO: no carga preview al agregar imagen
+      this.imagenIngresada = file;     //preupdate
+      this.imagenIngresadaPath =  <string>reader.result; //correccion postUpdate -> //TODO: no carga preview al agregar imagen
       
     };
     reader.readAsDataURL(file);
