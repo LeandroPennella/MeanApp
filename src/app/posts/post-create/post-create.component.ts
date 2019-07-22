@@ -54,7 +54,7 @@ export class PostCreateComponent implements OnInit {
           this.form.setValue({
             'tituloIngresado': this.post.titulo,
             'textoIngresado': this.post.contenido,
-            'imagenIngresada': this.post.imagen,
+            'imagenIngresada': this.post.imagen, //estaria sobrando?
             'imagenIngresadaPath': this.post.imagePath  //?
           });
         });
@@ -105,7 +105,7 @@ export class PostCreateComponent implements OnInit {
           titulo: this.form.value.tituloIngresado,
           contenido: this.form.value.textoIngresado,
           imagen: this.form.value.imagenIngresada,
-          imagePath: null
+          imagePath: null //this.form.value.imagenIngresadaPath ?
       });
     } else {
       this.postsService.updatePost({
@@ -113,7 +113,7 @@ export class PostCreateComponent implements OnInit {
         titulo: this.form.value.tituloIngresado,
         contenido: this.form.value.textoIngresado,
         imagen: this.form.value.imagenIngresada,
-        imagePath: null
+        imagePath: null //this.form.value.imagenIngresadaPath ?
       });
     }
     this.form.reset();
