@@ -15,8 +15,8 @@ import { mimeType} from './mime-type.validator';
 export class PostCreateComponent implements OnInit {
   textoIngresado = '';
   tituloIngresado = '';
-  imagenIngresada: File;
-  imagenIngresadaPath: string;   //-> imagePreview //correccion postupdate
+  //imagenIngresada: File;          // innecesario?
+  imagenIngresadaPath: string;   //-> imagePreview en el ex//correccion postupdate
   post: Post;             // es publico porque tiene que verse desde el html?
   isLoading = false;
   form: FormGroup;
@@ -39,7 +39,7 @@ export class PostCreateComponent implements OnInit {
       'textoIngresado': new FormControl(
         null, {validators: [Validators.required]}
       ),
-      'imagenIngresada': new FormControl(
+      'imagenIngresada': new FormControl( //no se va a sincronizar con el html (74 3:12)
         null, {validators: [Validators.required] , asyncValidators: [mimeType]}
       )
     });
@@ -54,8 +54,8 @@ export class PostCreateComponent implements OnInit {
           this.form.setValue({
             'tituloIngresado': this.post.titulo,
             'textoIngresado': this.post.contenido,
-            'imagenIngresada': this.post.imagen, //estaria sobrando?
-            'imagenIngresadaPath': this.post.imagePath  //?
+            //'imagenIngresada': this.post.imagen, //estaria sobrando?
+            'imagenIngresadaPath': this.post.imagenPath  //? imagePreview en el ex
           });
         });
       } else {
@@ -66,7 +66,7 @@ export class PostCreateComponent implements OnInit {
           titulo: null,
           contenido: null,
           imagen: null,
-          imagePath: null
+          imagenPath: null
         };
       }
     });
@@ -74,7 +74,7 @@ export class PostCreateComponent implements OnInit {
 
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({imagenIngresada: file});
+    this.form.patchValue({imagenIngresada: file}); // ver patchValue vs setValue
     this.form.get('imagenIngresada').updateValueAndValidity();
     
     console.log('pickin image...');
@@ -82,8 +82,8 @@ export class PostCreateComponent implements OnInit {
     console.log(this.form);
 
     const reader = new FileReader();
-    reader.onload = () => {
-      this.imagenIngresada = file;     //preupdate
+    reader.onload = () => { // codigo asincrono
+      //this.imagenIngresada = file;     //preupdate
       this.imagenIngresadaPath =  <string>reader.result; //correccion postUpdate -> //TODO: no carga preview al agregar imagen
       
     };
@@ -105,7 +105,7 @@ export class PostCreateComponent implements OnInit {
           titulo: this.form.value.tituloIngresado,
           contenido: this.form.value.textoIngresado,
           imagen: this.form.value.imagenIngresada,
-          imagePath: null //this.form.value.imagenIngresadaPath ?
+          imagenPath: null //this.form.value.imagenIngresadaPath ?
       });
     } else {
       this.postsService.updatePost({
@@ -113,7 +113,7 @@ export class PostCreateComponent implements OnInit {
         titulo: this.form.value.tituloIngresado,
         contenido: this.form.value.textoIngresado,
         imagen: this.form.value.imagenIngresada,
-        imagePath: null //this.form.value.imagenIngresadaPath ?
+        imagenPath: null //this.form.value.imagenIngresadaPath ?
       });
     }
     this.form.reset();

@@ -32,9 +32,10 @@ const Post = require('../model/post');
 router.get('', (request,response, next) =>   {
 
   Post.find().then((documents) => {
-    mensaje = 'api > posteos obtenidos de servidor';
+    mensaje = 'api > posteos obtenidos de servidor -------------------------------------------';
     console.log(mensaje)
-    console.log(documents);
+    console.log(documents)
+    console.log(mensaje + ' > fin ')
     response.status(200).json({
       message: mensaje,
       posts: documents
@@ -67,7 +68,7 @@ router.post('', multer({storage: storage}).single("imagen"), (request,response, 
 //    id = null,
     titulo: request.body.titulo,
     contenido: request.body.contenido,
-    imagePath: url + "/images/" + request.file.filename
+    imagenPath: url + "/images/" + request.file.filename
   });
 
   // console.log(post);

@@ -33,7 +33,7 @@
 sarasa
   {{form.value.imagenIngresadaPath}}
   -
-  <div class="image-preview" *ngIf="imagenIngresada &&  form.get('imagenIngresada').valid">
+  <div class="image-preview" *ngIf="imagenIngresadaPath && imagenIngresadaPath!=='' &&  form.get('imagenIngresada').valid">
     <img [src]="imagenIngresadaPath" [alt]="form.value.tituloIngresado">
   </div>
 

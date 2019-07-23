@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const postSchema = mongoose.Schema({
   titulo: {type: String, require: true},
   contenido:  {type: String, require: true},
-  imagePath: {type: String, require: false} //supuesto
+  imagenPath: {type: String, require: true} //supuesto
 });
 
 module.exports = mongoose.model('Post', postSchema);

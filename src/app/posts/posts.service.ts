@@ -26,7 +26,7 @@ export class PostsService {
               contenido: post.contenido,
               id: post._id,
               imagen: null, // resolver
-              imagePath: post.imagePath
+              imagenPath: post.imagenPath
             };
           });
         }
@@ -55,7 +55,7 @@ export class PostsService {
             contenido: responseData.post.contenido,
             id: responseData.post._id,
             imagen: null, // TODO: resolverpostData
-            imagePath: null
+            imagenPath: responseData.post.imagenPath
           };
         }));
         /*
@@ -85,7 +85,7 @@ export class PostsService {
           imagen: null, // addedPost.imagen,
           */
           ...addedPost,
-          imagePath: responseData.post.imagePath
+          imagenPath: responseData.post.imagenPath
         });
         this.postsUpdated.next([...this.posts]);
         console.log('svc > post ' + addedPost.id + ' agregado a local');

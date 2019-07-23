@@ -3,7 +3,7 @@ export interface Post {
   titulo: string;
   contenido: string;
   imagen: File;
-  imagePath: String;
+  imagenPath: String;
 }
 /*
 export interface Post2 {
