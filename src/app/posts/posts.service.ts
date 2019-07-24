@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({providedIn: 'root'})
 export class PostsService {
@@ -94,13 +95,35 @@ export class PostsService {
   }
 
   updatePost(post: Post) {
+    let postData: Post | FormData;
+    if (post.imagenPath===null) {
+      const postData = new FormData();
+      postData.append('titulo', post.titulo);
+      postData.append('contenido', post.contenido);
+      postData.append('imagen', post.imagen, post.titulo);
+    } else {
+      const postData: Post = {
+        id: post.id,
+        titulo: post.titulo,
+        contenido: post.contenido,
+        imagen: null,
+        imagenPath: post.imagenPath
+      };
+    }
     this.httpClient
-    .put<{message: string}>('http://localhost:3000/api/posts/' + post.id, post)
+    .put<{message: string}>('http://localhost:3000/api/posts/' + post.id, postData)
     .subscribe ( (responseData) => {
       console.log('svc > ' + responseData.message);
       const updatedPosts = [...this.posts];
       const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
-      updatedPosts[oldPostIndex] = post;
+      const postOut: Post = {
+        id: post.id,
+        titulo: post.titulo,
+        contenido: post.contenido,
+        imagen: null,
+        imagenPath: responseData.imagenPath
+      };
+      updatedPosts[oldPostIndex] = postOut;
       this.posts = updatedPosts;
       this.postsUpdated.next([...this.posts]);
       this.router.navigate(['/']);
