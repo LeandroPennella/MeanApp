@@ -92,7 +92,8 @@ router.post('', multer({storage: storage}).single("imagen"), (request,response, 
 //para seguir
 });
 
-router.put('/:id', (request, response, next) =>   {
+router.put('/:id', multer({storage: storage}).single("imagen"), (request, response, next) =>   {
+  console.log(request.file)
   Post.updateOne({_id: request.params.id},
     new Post({
       _id: request.body.id,

@@ -47,8 +47,8 @@ export class PostsService {
 
   getPost(id: string) {
     return this.httpClient.
-      get<{message: string, post: any}>('http://localhost:3000/api/posts/' + id)
-      .pipe(
+      get<{message: string, post: Post}>('http://localhost:3000/api/posts/' + id);
+      /*.pipe(
         map((responseData) => {
           console.log('svc > ' + responseData.message);
           return {
@@ -59,6 +59,7 @@ export class PostsService {
             imagenPath: responseData.post.imagenPath
           };
         }));
+        */
         /*
       .subscribe((parsedPost) => {
         return {...this.posts.find(p => p.id === id)};
@@ -96,10 +97,19 @@ export class PostsService {
 
   updatePost(post: Post) {
     let postData: Post | FormData;
-    if (post.imagenPath===null) {
+    if (post.imagenPath!==null) {
       const postData = new FormData();
+    
+  
       postData.append('titulo', post.titulo);
+    
+  
       postData.append('contenido', post.contenido);
+
+  
+  
+      console.log('svc > update > append 3 > post.imagen' + post.imagen);
+      console.log('svc > update > append 3 > post.imagenPath' + post.imagenPath);
       postData.append('imagen', post.imagen, post.titulo);
     } else {
       const postData: Post = {
@@ -121,7 +131,7 @@ export class PostsService {
         titulo: post.titulo,
         contenido: post.contenido,
         imagen: null,
-        imagenPath: responseData.imagenPath
+        imagenPath: ''// responseData.imagenPath
       };
       updatedPosts[oldPostIndex] = postOut;
       this.posts = updatedPosts;
