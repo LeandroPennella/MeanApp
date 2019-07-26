@@ -96,22 +96,18 @@ export class PostsService {
   }
 
   updatePost(post: Post) {
+    console.log('svc > update');
     let postData: Post | FormData;
-    if (post.imagenPath!==null) {
+    if (typeof(post.imagen)==='object') {
+      console.log('svc > update > file');
       const postData = new FormData();
-    
-  
       postData.append('titulo', post.titulo);
-    
-  
       postData.append('contenido', post.contenido);
-
-  
-  
       console.log('svc > update > append 3 > post.imagen' + post.imagen);
       console.log('svc > update > append 3 > post.imagenPath' + post.imagenPath);
       postData.append('imagen', post.imagen, post.titulo);
     } else {
+      console.log('svc > update > filePath');
       const postData: Post = {
         id: post.id,
         titulo: post.titulo,
@@ -120,6 +116,7 @@ export class PostsService {
         imagenPath: post.imagenPath
       };
     }
+    console.log('svc > update > put');
     this.httpClient
     .put<{message: string}>('http://localhost:3000/api/posts/' + post.id, postData)
     .subscribe ( (responseData) => {
@@ -131,12 +128,13 @@ export class PostsService {
         titulo: post.titulo,
         contenido: post.contenido,
         imagen: null,
-        imagenPath: ''// responseData.imagenPath
+        imagenPath: '' // postData.imagenPath
       };
       updatedPosts[oldPostIndex] = postOut;
       this.posts = updatedPosts;
       this.postsUpdated.next([...this.posts]);
       this.router.navigate(['/']);
+      console.log('svc > update > fin');
     });
   }
 

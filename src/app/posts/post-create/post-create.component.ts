@@ -107,9 +107,11 @@ export class PostCreateComponent implements OnInit {
     // console.dir(postInput);
 
     // this.newPost = this.textoIngresado;
+    /*
     if (this.form.invalid) {
       return;
     }
+    */
     this.isLoading = true;
     if (this.mode === 'create') {
       // this.postCreated.emit(post);

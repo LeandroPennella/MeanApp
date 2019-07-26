@@ -29,7 +29,7 @@ const Post = require('../model/post');
 
 
 
-router.get('', (request,response, next) =>   {
+router.get('', (request,response, next) =>   { //todo: que hace?
 
   Post.find().then((documents) => {
     mensaje = 'api > posteos obtenidos de servidor -------------------------------------------';
@@ -93,7 +93,17 @@ router.post('', multer({storage: storage}).single("imagen"), (request,response, 
 });
 
 router.put('/:id', multer({storage: storage}).single("imagen"), (request, response, next) =>   {
-  console.log(request.file)
+  console.log('api > put');
+  console.log('body-id: ' + request.body.id);
+  console.log('body-titulo: ' + request.body.titulo);
+  console.log('body-contenido: ' + request.body.contenido);
+  let imagenPath=request.body.imagenPath;
+  if(request.file){//new file was uploaded
+    const url = request.protocol + '://'+ request.get ("host");
+    imagenPath = url + "/images/" + request.file.filename;
+  }
+  console.log(request.file);
+  
   Post.updateOne({_id: request.params.id},
     new Post({
       _id: request.body.id,
@@ -106,6 +116,7 @@ router.put('/:id', multer({storage: storage}).single("imagen"), (request, respon
       console.log(resultado);
       response.status(200).json({message: mensaje});
     });
+  console.log ('api > put > end')
 });
 
 router.delete('/:id', (request, response, next) => {
