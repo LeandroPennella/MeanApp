@@ -111,7 +111,7 @@ router.put('/:id', multer({storage: storage}).single("imagen"), (request, respon
       contenido: request.body.contenido
     }))
     .then((resultado) => {
-      mensaje = 'api> post ' + request.body.id + ' editado en servidor';
+      mensaje = 'api> put ' + request.body.id + ' editado en servidor';
       console.log(mensaje);
       console.log(resultado);
       response.status(200).json({message: mensaje});

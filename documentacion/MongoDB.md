@@ -19,7 +19,9 @@ cd "C:\Users\fincu\AppData\Local\MongoDBCompass\"
 * Local *
 
 .\mongo "mongodb://localhost/nodeapdb"
+
 db.posts.find()
+db.posts.remove( {"_id": ObjectId("5bcdc8ca440180150c376874")});
 
 * Nube *
 
