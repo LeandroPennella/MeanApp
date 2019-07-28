@@ -69,6 +69,7 @@ export class PostsService {
 
   addPost(addedPost: Post) {
     const postData = new FormData();
+    
     postData.append('titulo', addedPost.titulo);
     postData.append('contenido', addedPost.contenido);
     postData.append('imagen', addedPost.imagen, addedPost.titulo);
@@ -101,6 +102,7 @@ export class PostsService {
     if (typeof(post.imagen)==='object') {
       console.log('svc > update > file');
       postData = new FormData();
+      postData.append('id', post.id);
       postData.append('titulo', post.titulo);
       postData.append('contenido', post.contenido);
       console.log('svc > update > append 3 > post.imagen' + post.imagen);
