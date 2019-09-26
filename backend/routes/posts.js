@@ -30,12 +30,21 @@ const Post = require('../model/post');
 
 
 router.get('', (request,response, next) =>   { //todo: que hace?
+  
+  const pageSize=+request.query.pagesize; //+ > cast int
+  const currentPage=+request.query.page;
+  const postQuery = Post.find();
+  if (pageSize && currentPage) {
+    postQuery
+      .skip(pagesize*(currentPage - 1))
+      .limit(pagesize);
+  }
 
-  Post.find().then((documents) => {
+  postQuery.then((documents) => {
     mensaje = 'api > posteos obtenidos de servidor -------------------------------------------';
-    console.log(mensaje)
-    console.log(documents)
-    console.log(mensaje + ' > fin ')
+    console.log(mensaje);
+    console.log(documents);
+    console.log(mensaje + ' > fin ');
     response.status(200).json({
       message: mensaje,
       posts: documents
@@ -45,6 +54,8 @@ router.get('', (request,response, next) =>   { //todo: que hace?
 });
 
 router.get('/:id', (request,response, next) =>   {
+
+  
 
   Post.findById(request.params.id).then((post) => {
     if (post) {
