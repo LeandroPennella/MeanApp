@@ -34,24 +34,33 @@ router.get('', (request,response, next) =>   { //todo: que hace?
   const pageSize=+request.query.pagesize; //+ > cast int
   const currentPage=+request.query.page;
   const postQuery = Post.find();
+  let postsExtraidos;
   if (pageSize && currentPage) {
     postQuery
       .skip(pageSize*(currentPage - 1))
       .limit(pageSize);
   }
 
-  postQuery.then((documents) => {
-    mensaje = 'api > posteos obtenidos de servidor -------------------------------------------';
-    console.log(mensaje);
-    console.log(documents);
-    console.log(mensaje + ' > fin ');
-    response.status(200).json({
-      message: mensaje,
-      posts: documents
+  postQuery
+    .then(documents => {
+      postsExtraidos = documents;
+      return Post.count();
     })
-  });
-
+    .then(count => {
+      mensaje = 'api > posteos obtenidos de servidor -------------------------------------------';
+      console.log(mensaje);
+      console.log(documents);
+      console.log(mensaje + ' > fin ');
+      response.status(200).json({
+        message: mensaje,
+        posts: postsExtraidos,
+        maxPosts: count
+      });
+    });
+  
 });
+
+
 
 router.get('/:id', (request,response, next) =>   {
 

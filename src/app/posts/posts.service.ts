@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
 @Injectable({providedIn: 'root'})
 export class PostsService {
   private posts: Post[] = [];
-  private postsUpdated = new Subject<Post[]>();
+  private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
@@ -18,25 +18,30 @@ export class PostsService {
     // return [...this.posts]; // genera una copia de posts (sino devolveria la referencia)
     const queryParams = `?pagesize= ${postsPerPage}&page=${currentPage} `; // backticks >  agregar valores dinamicamente a una cadena
     this.httpClient
-      .get<{message: string, posts: any}>('http://localhost:3000/api/posts' + queryParams)
+      .get<{message: string, posts: any, maxPosts: number}>('http://localhost:3000/api/posts' + queryParams)
       .pipe(
         map((responseData) => {
           console.log('svc > ' + responseData.message);
-          return responseData.posts.map(post => {
-            return {
-              titulo: post.titulo,
-              contenido: post.contenido,
-              id: post._id,
-              imagen: null, // resolver
-              imagenPath: post.imagenPath
-            };
-          });
-        }
-      ))
-      .subscribe((parsedPosts) => {
-
-        this.posts = parsedPosts;
-        this.postsUpdated.next([...this.posts]);
+          return {
+            posts: responseData.posts.map(post => {
+              return {
+                titulo: post.titulo,
+                contenido: post.contenido,
+                id: post._id,
+                imagen: null, // resolver
+                imagenPath: post.imagenPath
+              };
+            }),
+            maxPosts: responseData.maxPosts
+          };
+        })
+      )
+      .subscribe((parsedPostsData) => {
+        this.posts = parsedPostsData.posts;
+        this.postsUpdated.next({
+          posts: [...this.posts],
+          postCount: parsedPostsData.maxPosts
+        });
         // console.log('svc > posts cargados en local');
       });
 

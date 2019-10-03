@@ -23,7 +23,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   
   // paginator
 
-  totalPosts = 10; 
+  totalPosts = 10;
   postsPerPage = 2;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
@@ -41,6 +41,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   onChangedPage(pageData: PageEvent) {
+    this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
     this.postsPerPage = pageData.pageSize;
     this.postService.getPosts(this.postsPerPage, this.currentPage);
