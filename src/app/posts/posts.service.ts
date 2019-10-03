@@ -13,11 +13,12 @@ export class PostsService {
   private postsUpdated = new Subject<Post[]>();
 
   constructor(private httpClient: HttpClient, private router: Router) {}
-  getPosts() {
-    // return [...this.posts]; // genera una copia de posts (sino devolveria la referencia)
 
+  getPosts(postsPerPage: number, currentPage: number) {
+    // return [...this.posts]; // genera una copia de posts (sino devolveria la referencia)
+    const queryParams = `?pagesize= ${postsPerPage}&page=${currentPage} `; // backticks >  agregar valores dinamicamente a una cadena
     this.httpClient
-      .get<{message: string, posts: any}>('http://localhost:3000/api/posts')
+      .get<{message: string, posts: any}>('http://localhost:3000/api/posts' + queryParams)
       .pipe(
         map((responseData) => {
           console.log('svc > ' + responseData.message);

@@ -36,8 +36,8 @@ router.get('', (request,response, next) =>   { //todo: que hace?
   const postQuery = Post.find();
   if (pageSize && currentPage) {
     postQuery
-      .skip(pagesize*(currentPage - 1))
-      .limit(pagesize);
+      .skip(pageSize*(currentPage - 1))
+      .limit(pageSize);
   }
 
   postQuery.then((documents) => {
