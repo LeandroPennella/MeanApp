@@ -42,7 +42,7 @@ export class PostsService {
           posts: [...this.posts],
           postCount: parsedPostsData.maxPosts
         });
-        // console.log('svc > posts cargados en local');
+        console.log('svc > posts cargados en local');
       });
 
   }
@@ -82,22 +82,24 @@ export class PostsService {
     this.httpClient
       .post<{message: string, post: Post}>('http://localhost:3000/api/posts', postData)
       .subscribe((responseData) => {
+        /* no hace falta 
         console.log('svc >' + responseData.message);
         addedPost.id = responseData.post.id;
         this.posts.push ({
 
           // todo: ... addedPost
-/*
-          id: addedPost.id,
-          titulo: addedPost.titulo,
-          contenido: addedPost.contenido,
-          imagen: null, // addedPost.imagen,
-          */
+
+          // id: addedPost.id,
+          // titulo: addedPost.titulo,
+          // contenido: addedPost.contenido,
+          // imagen: null, // addedPost.imagen,
+          
           ...addedPost,
           imagenPath: responseData.post.imagenPath
         });
         this.postsUpdated.next([...this.posts]);
         console.log('svc > post ' + addedPost.id + ' agregado a local');
+        */
         this.router.navigate(['/']);
       });
   }
@@ -129,6 +131,8 @@ export class PostsService {
     this.httpClient
     .put<{message: string}>('http://localhost:3000/api/posts/' + post.id, postData)
     .subscribe ( (responseData) => {
+      /* no es necesario
+
       console.log('svc > ' + responseData.message);
       const updatedPosts = [...this.posts];
       const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
@@ -143,11 +147,15 @@ export class PostsService {
       this.posts = updatedPosts;
       this.postsUpdated.next([...this.posts]);
       this.router.navigate(['/']);
+      */
       console.log('svc > update > fin');
     });
   }
 
   deletePost(id: string) {
+    return this.httpClient
+    .delete('http://localhost:3000/api/posts/' + id);
+    /*
     this.httpClient
     .delete('http://localhost:3000/api/posts/' + id)
     .subscribe((responseData) => {
@@ -157,6 +165,6 @@ export class PostsService {
       this.postsUpdated.next([...this.posts]);
       console.log('svc > post ' + id + ' deleted from local');
 
-    });
+    });*/
   }
 }

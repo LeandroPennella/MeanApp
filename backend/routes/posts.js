@@ -31,8 +31,8 @@ const Post = require('../model/post');
 
 router.get('', (request,response, next) =>   { //todo: que hace?
   
-  const pageSize=+request.query.pagesize; //+ > cast int
-  const currentPage=+request.query.page;
+  const pageSize= +request.query.pagesize; //+ > cast int
+  const currentPage= +request.query.page;
   const postQuery = Post.find();
   let postsExtraidos;
   if (pageSize && currentPage) {
@@ -49,7 +49,7 @@ router.get('', (request,response, next) =>   { //todo: que hace?
     .then(count => {
       mensaje = 'api > posteos obtenidos de servidor -------------------------------------------';
       console.log(mensaje);
-      console.log(documents);
+      console.log(postsExtraidos);
       console.log(mensaje + ' > fin ');
       response.status(200).json({
         message: mensaje,
